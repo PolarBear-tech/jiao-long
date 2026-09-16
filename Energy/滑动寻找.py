@@ -70,4 +70,4 @@ def interactive_color_picker(video_path):
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-        interactive_color_picker("/home/gufeng/27笔试/27笔试/down/Energy/energy1.mkv")
+        interactive_color_picker("/home/gufeng/27笔试/27笔试/down/Energy/energy3.mkv")

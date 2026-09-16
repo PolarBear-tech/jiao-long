@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import sys
 
-def video_orange_binary(video_path, output_path=None):
+def video_orange_binary(video_path, output_path=None,lower_orange=None, upper_orange=None):
     # 1. 打开视频（video_path 可以是本地文件路径，也可以是摄像头索引 0）
     cap = cv2.VideoCapture(video_path)
     
@@ -31,10 +31,6 @@ def video_orange_binary(video_path, output_path=None):
 
         # 4. 转换到 HSV 颜色空间
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
-        # 5. 定义橙色的 HSV 阈值范围
-        lower_orange = np.array([22, 0, 0])
-        upper_orange = np.array([29, 223, 255])
 
         # 6. 生成二值掩码并提取橙色区域
         mask = cv2.inRange(hsv, lower_orange, upper_orange)
@@ -68,6 +64,12 @@ def video_orange_binary(video_path, output_path=None):
     print("处理完成！")
 
 if __name__ == "__main__":
-        video_path = "/home/gufeng/27笔试/27笔试/down/Energy/energy1.mkv"
-        output_path = "/home/gufeng/27笔试/27笔试/down/Energy/energy1_orange_only.mp4"
-        video_orange_binary(video_path, output_path)
+        #video_path = "/home/gufeng/27笔试/27笔试/down/Energy/energy1.mkv"
+        #output_path = "/home/gufeng/27笔试/27笔试/down/Energy/energy1_orange_only.mp4"
+        #video_orange_binary(video_path, output_path)
+        video_path = "/home/gufeng/27笔试/27笔试/down/Energy/energy2.mkv"
+        output_path = "/home/gufeng/27笔试/27笔试/down/Energy/energy2_orange_only.mp4"
+        video_orange_binary(video_path, output_path,lower_orange= np.array([0, 169, 60]),upper_orange = np.array([132, 255, 255]))
+        video_path = "/home/gufeng/27笔试/27笔试/down/Energy/energy3.mkv"
+        output_path = "/home/gufeng/27笔试/27笔试/down/Energy/energy3_orange_only.mp4"
+        video_orange_binary(video_path, output_path,lower_orange= np.array([0, 124, 35]),upper_orange = np.array([179, 255, 255]))
