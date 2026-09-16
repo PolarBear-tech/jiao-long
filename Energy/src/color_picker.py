@@ -1,6 +1,8 @@
+"""
+本文件是用来通过opencv的滑动条，寻找最佳的HSV的upper和lower范围，方便后来的mp4中橙色的bitwize
+"""
 import cv2
 import numpy as np
-import sys
 
 def nothing(x):
     """滑动条回调函数（OpenCV 要求必须有）"""
