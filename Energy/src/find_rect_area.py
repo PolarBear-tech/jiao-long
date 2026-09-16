@@ -1,3 +1,6 @@
+"""
+检查R的矩形范围，并输出mp4的视频
+"""
 import cv2
 import numpy as np
 

@@ -1,3 +1,6 @@
+"""
+检查矩形框，输出到json文件
+"""
 import cv2
 import numpy as np
 import json
