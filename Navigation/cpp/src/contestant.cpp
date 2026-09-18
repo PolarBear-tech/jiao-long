@@ -45,6 +45,38 @@ std::unique_ptr<NavigationContext> nav_init(Simulator& sim) {
     // Question 2: do robot-radius preprocessing once during initialization.
     // This is where map inflation, clearance data or a collision model belongs.
     Map map = sim.map();
+
+    // 先膨胀一下地图
+    const auto resolution = map.resolution();
+    const auto inflation_num = ceil(robot_radius / resolution);
+
+    const auto data = map.data();
+    const auto [height, width] = map.shape();
+    auto inf = data;
+
+    for(int y = 0; y < height; ++ y){
+        for (int x = 0; x < width; ++x)
+        {
+            if (data[y * height + x] == 1) // 这是障碍物
+            {
+                for(int dy = -inflation_num; dy < inflation_num; ++dy)
+                {
+                    for (int dx = 0; dx < width; ++dx)
+                    {
+                        if ((y + dy) < height && (x + dx) < width && (dx * dx + dy * dy < inflation_num * inflation_num)){
+                            inf[(y + dy) * height + (x + dx)] = 1;
+                        }
+                    }
+                    
+                }
+            }
+        }
+        
+    }
+    map = pyrobo::Map(
+        height, width, resolution, map.origin(), std::move(inf)
+    );
+
     sim.set_planning_map(map);
 
     return std::make_unique<ContestantNavigationContext>(map, robot_radius);
