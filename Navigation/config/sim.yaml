@@ -1,0 +1,33 @@
+# 你需要知道的是，这里面除了展示部分`display`下的配置是真实被读取的以外，其他的数值都是硬编码的，修改配置不会对仿真产生影响，请你务必知晓这一点
+meta:
+  author: Musheng-bot
+  email: meisoren081@gmail.com
+pyrobo:
+  robot_radius: 0.3 # meter
+  time_step: 0.05 # seconds
+  map:
+    origin_x: 0.0 # meter
+    origin_y: 0.0 # meter
+    resolution: 0.05 # meter / pixel
+    name: "map" # `map/*.pgm` or `map/*.png`
+  control:
+    mode: auto # `manual` or `auto`
+    dynamics:
+      vx_max: 1.5
+      vx_min: 0.0
+      vy_max: 1.5
+      vy_min: 0.0
+      acc_max: 1.0 # meter / second^2;
+      acc_min: -1.0 # meter / second^2;
+  display:
+    show_lidar: false # show lidar points if true
+    show_planning_map: false # if false, show original map; else show planning map
+  robot:
+    initial:
+      x: 0.50
+      y: 0.50
+      yaw: 0.0
+    goal:
+      x: 9.50
+      y: 7.50
+      yaw: 0.0
