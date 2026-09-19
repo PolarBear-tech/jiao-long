@@ -2,6 +2,9 @@
 #include <stdexcept>
 #include <utility>
 
+// 调试所用
+#include <iostream>
+
 #include "pyrobo/interface.hpp"
 #include "pyrobo/planner.h"
 
@@ -52,29 +55,27 @@ std::unique_ptr<NavigationContext> nav_init(Simulator& sim) {
 
     const auto data = map.data();
     const auto [height, width] = map.shape();
-    auto inf = data;
+    auto inflation = data;
 
-    for(int y = 0; y < height; ++ y){
-        for (int x = 0; x < width; ++x)
-        {
-            if (data[y * height + x] == 1) // 这是障碍物
-            {
-                for(int dy = -inflation_num; dy < inflation_num; ++dy)
-                {
-                    for (int dx = 0; dx < width; ++dx)
-                    {
-                        if ((y + dy) < height && (x + dx) < width && (dx * dx + dy * dy < inflation_num * inflation_num)){
-                            inf[(y + dy) * height + (x + dx)] = 1;
-                        }
+    for(int y = 0; y < height; y++){
+        for (int x = 0; x < width; x++){
+            if (data[y * width + x] == 0){
+                for (int dy= -inflation_num; dy <= inflation_num; dy++){
+                    for (int dx = -inflation_num; dx <= inflation_num; dx++){
+                            int y0 = y + dy;
+                            int x0 = x + dx;
+                            if (y0 >= 0 && y0 < height &&
+                                x0 >= 0 && x0 < width  &&
+                                (dx * dx + dy * dy <= inflation_num * inflation_num)){
+                                inflation[y0 * width + x0] = 0;
+                            }
                     }
-                    
                 }
             }
         }
-        
     }
     map = pyrobo::Map(
-        height, width, resolution, map.origin(), std::move(inf)
+        height, width, resolution, map.origin(), inflation
     );
 
     sim.set_planning_map(map);
