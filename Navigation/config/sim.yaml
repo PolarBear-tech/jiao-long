@@ -21,7 +21,7 @@ pyrobo:
       acc_min: -1.0 # meter / second^2;
   display:
     show_lidar: false # show lidar points if true
-    show_planning_map: false # if false, show original map; else show planning map
+    show_planning_map: true # if false, show original map; else show planning map
   robot:
     initial:
       x: 0.50
