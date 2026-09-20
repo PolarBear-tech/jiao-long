@@ -161,6 +161,6 @@ def debug_area(video_path, output_json,min_area=50, min_cuir=0.7, R_area_max=400
 
 if __name__ == "__main__":
     
-    video = "./Energy/mp4/energy2_orange_only.mp4"
+    video = "/home/gufeng/谷丰525712910059/Energy/mp4/energy2_orange_only.mp4"
     output_json = "./Energy/2.json"
     debug_area(video, output_json)
